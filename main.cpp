@@ -1,5 +1,5 @@
 #include "Bank.h"
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
@@ -14,6 +14,13 @@ int main()
     bank.withdraw_from_account(1002, 1000);
 
     bank.displayAllAccounts();
+   
+
+    bank.create_saving_account("Hari", 13000, 5);
+    bank.create_current_account("Hari", 10000, 500);
+
+    bank.auto_generate_report();
+
 
     return 0;
 }

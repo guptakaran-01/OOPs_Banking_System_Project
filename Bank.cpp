@@ -162,3 +162,40 @@ void Bank::displayAllAccounts()
         cout << "--------------------" << endl;
     }
 }
+
+vector<Account*> Bank:: find_acc_by_name(string name){
+   vector<Account*>result;
+    for(auto acc: accounts){
+        if(acc->get_account_holder_name()==name){
+            result.push_back(acc) ;
+        }
+    }
+
+    return result;
+}
+
+void Bank :: auto_generate_report(){
+    double total_bank_balance=0;
+    int saving_count=0;
+    int current_count=0;
+     if (accounts.empty()) {
+        cout << "No accounts found in the bank!" << endl;
+        return;
+    }
+    for(auto acc: accounts){
+        total_bank_balance+=acc->get_balance();
+        Saving_Account *sa=dynamic_cast<Saving_Account*>(acc);
+        // Current_Account* ca = dynamic_cast<Current_Account*>(acc);
+        if(sa!=NULL){
+            saving_count++;
+        }
+        else{
+            current_count++;
+        }
+    }
+    
+    cout<<"Total saving accounts are "<<saving_count<<endl;
+    cout<<"Total current accounts are "<<current_count<<endl;
+    cout<<"Total bank balnce all accounts is "<<total_bank_balance<<endl ;
+    
+}

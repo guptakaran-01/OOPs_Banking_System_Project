@@ -14,6 +14,7 @@ public:
     void create_saving_account(string name, double balance, double rate);
     void create_current_account(string name, double balance, double overdraft_limit);
     Account *find_acc(int account_no);
+    vector<Account*> find_acc_by_name(string name);
     void deposit_to_account(int account_no, int amount);
     void withdraw_from_account(int account_no, int amount);
     void transaction_between_accounts(int from_account_no, int to_account_no, int amount);
@@ -22,6 +23,8 @@ public:
     void Auto_generate_saving_interest();
     void Minimum_balace_Warning();
     void displayAllAccounts();
+    void auto_generate_report();
+
 };
 
 #endif
