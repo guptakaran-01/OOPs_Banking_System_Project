@@ -124,7 +124,9 @@ void Bank::Edit_Account_Details(int account_no, string new_name)
 }
 
 void Bank::Auto_generate_saving_interest()
+
 {
+
     for (auto acc : accounts)
     {
         Saving_Account *sa = dynamic_cast<Saving_Account *>(acc);
@@ -163,39 +165,61 @@ void Bank::displayAllAccounts()
     }
 }
 
-vector<Account*> Bank:: find_acc_by_name(string name){
-   vector<Account*>result;
-    for(auto acc: accounts){
-        if(acc->get_account_holder_name()==name){
-            result.push_back(acc) ;
+vector<Account *> Bank::find_acc_by_name(string name)
+{
+    vector<Account *> result;
+    for (auto acc : accounts)
+    {
+        if (acc->get_account_holder_name() == name)
+        {
+            result.push_back(acc);
         }
     }
 
     return result;
 }
 
-void Bank :: auto_generate_report(){
-    double total_bank_balance=0;
-    int saving_count=0;
-    int current_count=0;
-     if (accounts.empty()) {
+void Bank ::auto_generate_report()
+{
+    double total_bank_balance = 0;
+    int saving_count = 0;
+    int current_count = 0;
+    if (accounts.empty())
+    {
         cout << "No accounts found in the bank!" << endl;
         return;
     }
-    for(auto acc: accounts){
-        total_bank_balance+=acc->get_balance();
-        Saving_Account *sa=dynamic_cast<Saving_Account*>(acc);
+    for (auto acc : accounts)
+    {
+        total_bank_balance += acc->get_balance();
+        Saving_Account *sa = dynamic_cast<Saving_Account *>(acc);
         // Current_Account* ca = dynamic_cast<Current_Account*>(acc);
-        if(sa!=NULL){
+        if (sa != NULL)
+        {
             saving_count++;
         }
-        else{
+        else
+        {
             current_count++;
         }
     }
-    
-    cout<<"Total saving accounts are "<<saving_count<<endl;
-    cout<<"Total current accounts are "<<current_count<<endl;
-    cout<<"Total bank balnce all accounts is "<<total_bank_balance<<endl ;
-    
+
+    cout << "Total saving accounts are " << saving_count << endl;
+    cout << "Total current accounts are " << current_count << endl;
+    cout << "Total bank balnce all accounts is " << total_bank_balance << endl;
+}
+
+void Bank ::print_account_history(int account_no)
+{
+    Account *acc = find_acc(account_no);
+    if (acc != NULL)
+    {
+        cout << "------------" << endl;
+        acc->print_transaction_history();
+        cout << "------------" << endl;
+    }
+    else
+    {
+        cout << "Account not found" << endl;
+    }
 }

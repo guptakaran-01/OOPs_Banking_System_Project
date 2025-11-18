@@ -1,7 +1,8 @@
 #ifndef Account_H
 #define Account_H
-
-#include <bits/stdc++.h>
+#include "Transaction.h"
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Account
@@ -10,9 +11,11 @@ private:
     int Account_no;
     string account_holder_name;
     double balance;
+    vector<Transaction> transactions;
 
 public:
     Account(int Account_no, string name, double balance);
+    virtual ~Account();
     void setname(string name);
     int get_Account_No();
     string get_account_holder_name();
@@ -21,6 +24,8 @@ public:
     virtual bool withdraw(double amount);
     void change_balance(double amount);
     void displayBalance();
+    void record_transaction(string type, double amount);
+    void print_transaction_history();
 };
 
 class Saving_Account : public Account

@@ -11,15 +11,15 @@ int main()
     bank.create_current_account("Rohan", 3000, 3000);
 
     bank.deposit_to_account(1001, 500);
+    bank.withdraw_from_account(1001,200);
+    bank.deposit_to_account(1001,5000);
     bank.withdraw_from_account(1002, 1000);
 
     bank.displayAllAccounts();
    
 
-    bank.create_saving_account("Hari", 13000, 5);
-    bank.create_current_account("Hari", 10000, 500);
 
-    bank.auto_generate_report();
+    bank.print_account_history(1001);
 
 
     return 0;

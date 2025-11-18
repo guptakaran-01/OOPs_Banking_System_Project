@@ -1,7 +1,7 @@
 #ifndef BANK_H
 #define BANK_H
 #include "Account.h" 
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 class Bank
@@ -24,6 +24,7 @@ public:
     void Minimum_balace_Warning();
     void displayAllAccounts();
     void auto_generate_report();
+    void print_account_history(int account_no);;
 
 };
 

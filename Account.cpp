@@ -1,4 +1,4 @@
-#include "Account.h" 
+#include "Account.h"
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,6 +8,10 @@ Account::Account(int Account_no, string name, double balance)
     this->account_holder_name = name;
     this->balance = balance;
 }
+
+ Account:: ~Account(){
+    
+ }
 
 void Account::setname(string name)
 {
@@ -32,6 +36,7 @@ bool Account::deposit(double amount)
     if (amount > 0)
     {
         balance += amount;
+        record_transaction("Deposit", amount);
         return true;
     }
     else
@@ -45,6 +50,7 @@ bool Account::withdraw(double amount)
     if (amount > 0 && amount <= balance)
     {
         balance -= amount;
+        record_transaction("withdraw", amount);
         return true;
     }
     else
@@ -63,6 +69,32 @@ void Account::displayBalance()
     cout << "Account Number : " << Account_no << endl;
     cout << "Account holder name : " << account_holder_name << endl;
     cout << "Balance : " << balance << endl;
+}
+
+void Account::record_transaction(string type, double amount)
+{
+    // converting time in human readable format
+    time_t now = time(0);   // current system time
+    char *dt = ctime(&now); // convert to string (includes newline)
+
+    string time_str(dt);
+    time_str.pop_back();
+
+    Transaction tr;
+    tr.time = time_str;
+    tr.type = type;
+    tr.amount = amount;
+    tr.final_balance = get_balance();
+
+    transactions.push_back(tr);
+}
+void Account::print_transaction_history()
+{
+    cout<<"Transaction history"<<endl;
+    for (const auto &tr : transactions)
+    {
+        cout<<tr.time <<" | "<<tr.type<<" | "<<tr.amount<<" | Balance : "<<tr.final_balance<<endl;
+    }
 }
 
 Saving_Account::Saving_Account(int Account_no, string name, double balance, double rate) : Account(Account_no, name, balance)
@@ -88,7 +120,7 @@ Current_Account::Current_Account(int Account_no, string name, double balance, do
     this->over_draft_limit = overdraft_limit;
 }
 
-bool Current_Account::withdraw(double amount) 
+bool Current_Account::withdraw(double amount)
 {
     if (amount > 0 && amount <= get_balance() + over_draft_limit)
     {
