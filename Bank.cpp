@@ -223,3 +223,16 @@ void Bank ::print_account_history(int account_no)
         cout << "Account not found" << endl;
     }
 }
+
+void Bank::export_account_history(int account_no, const string& filename)
+{
+    for (auto acc : accounts)
+    {
+        if (acc->get_Account_No() == account_no)
+        {
+            acc->exportHistory(filename);
+            return;
+        }
+    }
+    cout << "No account found with number: " << account_no << endl;
+}

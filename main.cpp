@@ -11,16 +11,13 @@ int main()
     bank.create_current_account("Rohan", 3000, 3000);
 
     bank.deposit_to_account(1001, 500);
-    bank.withdraw_from_account(1001,200);
-    bank.deposit_to_account(1001,5000);
+    bank.withdraw_from_account(1001, 200);
+    bank.deposit_to_account(1001, 5000);
     bank.withdraw_from_account(1002, 1000);
 
     bank.displayAllAccounts();
-   
 
-
-    bank.print_account_history(1001);
-
+    bank.export_account_history(1001, "1001_history.txt");
 
     return 0;
 }

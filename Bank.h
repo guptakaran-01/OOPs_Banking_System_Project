@@ -24,8 +24,10 @@ public:
     void Minimum_balace_Warning();
     void displayAllAccounts();
     void auto_generate_report();
-    void print_account_history(int account_no);;
+    void print_account_history(int account_no);
+    void export_account_history(int account_no, const string& filename);
 
+     
 };
 
 #endif

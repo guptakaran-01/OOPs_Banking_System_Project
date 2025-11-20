@@ -1,0 +1,9 @@
+Account NO 1001
+Account holder name Hari
+-----------------------
+Transaction history :
+Thu Nov 20 11:24:50 2025 | Deposit | Amount: 500 | Balance: 8500
+Thu Nov 20 11:24:50 2025 | withdraw | Amount: 200 | Balance: 8300
+Thu Nov 20 11:24:50 2025 | Deposit | Amount: 5000 | Balance: 13300
+---------------------------------
+END OF REPORT

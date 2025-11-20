@@ -26,6 +26,7 @@ public:
     void displayBalance();
     void record_transaction(string type, double amount);
     void print_transaction_history();
+    void exportHistory(const std::string& filename) const;
 };
 
 class Saving_Account : public Account

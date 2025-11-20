@@ -1,5 +1,6 @@
 #include "Account.h"
 #include <bits/stdc++.h>
+#include <fstream>
 using namespace std;
 
 Account::Account(int Account_no, string name, double balance)
@@ -9,9 +10,9 @@ Account::Account(int Account_no, string name, double balance)
     this->balance = balance;
 }
 
- Account:: ~Account(){
-    
- }
+Account::~Account()
+{
+}
 
 void Account::setname(string name)
 {
@@ -90,10 +91,10 @@ void Account::record_transaction(string type, double amount)
 }
 void Account::print_transaction_history()
 {
-    cout<<"Transaction history"<<endl;
+    cout << "Transaction history" << endl;
     for (const auto &tr : transactions)
     {
-        cout<<tr.time <<" | "<<tr.type<<" | "<<tr.amount<<" | Balance : "<<tr.final_balance<<endl;
+        cout << tr.time << " | " << tr.type << " | " << tr.amount << " | Balance : " << tr.final_balance << endl;
     }
 }
 
@@ -131,4 +132,38 @@ bool Current_Account::withdraw(double amount)
     {
         return false;
     }
+}
+
+void Account::exportHistory(const std::string &filename) const
+{
+    ofstream file(filename);
+    if (!file.is_open())
+    {
+        cout << "Error opening file name" << filename << endl;
+        return;
+    }
+
+    file << "Account NO " << Account_no << "\n";
+    file << "Account holder name " << account_holder_name << "\n";
+
+    file << "-----------------------\n";
+    file << "Transaction history :\n";
+    if (transactions.empty())
+    {
+        file << "No transaction available\n";
+    }
+    else
+    {
+        for (const auto &tr: transactions)
+        {
+             file << tr.time << " | " << tr.type
+                 << " | Amount: " << tr.amount
+                 << " | Balance: " << tr.final_balance << "\n";
+        }
+    }
+    file << "---------------------------------\n";
+    file << "END OF REPORT\n";
+
+    file.close();
+    cout << "Transaction history exported to: " << filename << endl;
 }
