@@ -1,9 +1,8 @@
 #include "Account.h"
 #include <bits/stdc++.h>
 #include <fstream>
-using namespace std;
 
-Account::Account(int Account_no, string name, double balance)
+Account::Account(int Account_no, const std::string &name, double balance)
 {
     this->Account_no = Account_no;
     this->account_holder_name = name;
@@ -14,20 +13,20 @@ Account::~Account()
 {
 }
 
-void Account::setname(string name)
+void Account::setname(std::string name)
 {
     this->account_holder_name = name;
 }
 
-int Account::get_Account_No()
+int Account::get_Account_No() const
 {
     return Account_no;
 }
-string Account::get_account_holder_name()
+string Account::get_account_holder_name() const
 {
     return account_holder_name;
 }
-double Account::get_balance()
+double Account::get_balance() const
 {
     return balance;
 }
@@ -65,14 +64,14 @@ void Account::change_balance(double amount)
     balance += amount;
 }
 
-void Account::displayBalance()
+void Account::displayBalance() const
 {
     cout << "Account Number : " << Account_no << endl;
     cout << "Account holder name : " << account_holder_name << endl;
     cout << "Balance : " << balance << endl;
 }
 
-void Account::record_transaction(string type, double amount)
+void Account::record_transaction(const std::string &type, double amount)
 {
     // converting time in human readable format
     time_t now = time(0);   // current system time
@@ -89,7 +88,7 @@ void Account::record_transaction(string type, double amount)
 
     transactions.push_back(tr);
 }
-void Account::print_transaction_history()
+void Account::print_transaction_history() const
 {
     cout << "Transaction history" << endl;
     for (const auto &tr : transactions)
@@ -98,7 +97,7 @@ void Account::print_transaction_history()
     }
 }
 
-Saving_Account::Saving_Account(int Account_no, string name, double balance, double rate) : Account(Account_no, name, balance)
+Saving_Account::Saving_Account(int Account_no, const std::string &name, double balance, double rate) : Account(Account_no, name, balance)
 {
     this->interest_rate = rate;
 }
@@ -116,7 +115,7 @@ bool Saving_Account::addInterest()
     }
 }
 
-Current_Account::Current_Account(int Account_no, string name, double balance, double overdraft_limit) : Account(Account_no, name, balance)
+Current_Account::Current_Account(int Account_no, const std::string &name, double balance, double overdraft_limit) : Account(Account_no, name, balance)
 {
     this->over_draft_limit = overdraft_limit;
 }
@@ -126,6 +125,7 @@ bool Current_Account::withdraw(double amount)
     if (amount > 0 && amount <= get_balance() + over_draft_limit)
     {
         Account::change_balance(-amount);
+        record_transaction("Withdraw", amount);
         return true;
     }
     else
@@ -136,7 +136,7 @@ bool Current_Account::withdraw(double amount)
 
 void Account::exportHistory(const std::string &filename) const
 {
-    ofstream file(filename);
+    std::ofstream file(filename);
     if (!file.is_open())
     {
         cout << "Error opening file name" << filename << endl;
@@ -154,9 +154,9 @@ void Account::exportHistory(const std::string &filename) const
     }
     else
     {
-        for (const auto &tr: transactions)
+        for (const auto &tr : transactions)
         {
-             file << tr.time << " | " << tr.type
+            file << tr.time << " | " << tr.type
                  << " | Amount: " << tr.amount
                  << " | Balance: " << tr.final_balance << "\n";
         }
