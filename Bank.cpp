@@ -3,21 +3,21 @@
 using namespace std;
 
 // Account Creation
-void Bank::create_saving_account(string name, double balance, double rate)
+void Bank::create_saving_account(const string& name, double balance, double rate)
 {
-    Account *acc = new Saving_Account(nextAccountnumber++, name, balance, rate);
+    IAccount *acc = new Saving_Account(nextAccountnumber++, name, balance, rate);
     accounts.push_back(acc);
     cout << "Saving Account created " << endl;
 }
-void Bank::create_current_account(string name, double balance, double overdraft_limit)
+void Bank::create_current_account(const string& name, double balance, double overdraft_limit)
 {
-    Account *acc = new Current_Account(nextAccountnumber++, name, balance, overdraft_limit);
+    IAccount *acc = new Current_Account(nextAccountnumber++, name, balance, overdraft_limit);
     accounts.push_back(acc);
     cout << "Current Account created " << endl;
 }
 
 // finding Account
-Account *Bank::find_acc(int account_no)
+IAccount *Bank::find_acc(int account_no)
 {
     for (auto acc : accounts)
     {
@@ -30,9 +30,9 @@ Account *Bank::find_acc(int account_no)
     return NULL; // If no account found
 }
 
-void Bank::deposit_to_account(int account_no, int amount)
+void Bank::deposit_to_account(int account_no, double amount)
 {
-    Account *acc = find_acc(account_no);
+    IAccount *acc = find_acc(account_no);
     if (acc != NULL)
     {
         if (acc->deposit(amount))
@@ -49,9 +49,9 @@ void Bank::deposit_to_account(int account_no, int amount)
         cout << "Account not found" << endl;
     }
 }
-void Bank::withdraw_from_account(int account_no, int amount)
+void Bank::withdraw_from_account(int account_no, double amount)
 {
-    Account *acc = find_acc(account_no);
+    IAccount *acc = find_acc(account_no);
     if (acc != NULL)
     {
         if (acc->withdraw(amount))
@@ -69,10 +69,10 @@ void Bank::withdraw_from_account(int account_no, int amount)
     }
 }
 
-void Bank::transaction_between_accounts(int from_account_no, int to_account_no, int amount)
+void Bank::transaction_between_accounts(int from_account_no, int to_account_no, double amount)
 {
-    Account *acc1 = find_acc(from_account_no);
-    Account *acc2 = find_acc(to_account_no);
+    IAccount *acc1 = find_acc(from_account_no);
+    IAccount *acc2 = find_acc(to_account_no);
     if (acc1 != NULL && acc2 != NULL)
     {
         if (acc1->withdraw(amount))
@@ -109,9 +109,9 @@ void Bank::close_account(int account_no)
     cout << "No Account found" << endl;
 }
 
-void Bank::Edit_Account_Details(int account_no, string new_name)
+void Bank::Edit_Account_Details(int account_no, const string& new_name)
 {
-    Account *acc = find_acc(account_no);
+    IAccount *acc = find_acc(account_no);
     if (acc != NULL)
     {
         acc->setname(new_name);
@@ -165,9 +165,9 @@ void Bank::displayAllAccounts()
     }
 }
 
-vector<Account *> Bank::find_acc_by_name(string name)
+vector<IAccount *> Bank::find_acc_by_name(const string& name)
 {
-    vector<Account *> result;
+    vector<IAccount *> result;
     for (auto acc : accounts)
     {
         if (acc->get_account_holder_name() == name)
@@ -211,7 +211,7 @@ void Bank ::auto_generate_report()
 
 void Bank ::print_account_history(int account_no)
 {
-    Account *acc = find_acc(account_no);
+    IAccount *acc = find_acc(account_no);
     if (acc != NULL)
     {
         cout << "------------" << endl;
