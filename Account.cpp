@@ -1,8 +1,9 @@
 #include "Account.h"
-#include <bits/stdc++.h>
+#include <iostream>
 #include <fstream>
+using namespace std;
 
-Account::Account(int Account_no, const std::string &name, double balance)
+Account::Account(int Account_no, const string &name, double balance)
 {
     this->Account_no = Account_no;
     this->account_holder_name = name;
@@ -13,7 +14,7 @@ Account::~Account()
 {
 }
 
-void Account::setname(std::string name)
+void Account::setname(const string& name)
 {
     this->account_holder_name = name;
 }
@@ -71,7 +72,7 @@ void Account::displayBalance() const
     cout << "Balance : " << balance << endl;
 }
 
-void Account::record_transaction(const std::string &type, double amount)
+void Account::record_transaction(const string &type, double amount)
 {
     // converting time in human readable format
     time_t now = time(0);   // current system time
@@ -97,7 +98,7 @@ void Account::print_transaction_history() const
     }
 }
 
-Saving_Account::Saving_Account(int Account_no, const std::string &name, double balance, double rate) : Account(Account_no, name, balance)
+Saving_Account::Saving_Account(int Account_no, const string &name, double balance, double rate) : Account(Account_no, name, balance)
 {
     this->interest_rate = rate;
 }
@@ -115,7 +116,7 @@ bool Saving_Account::addInterest()
     }
 }
 
-Current_Account::Current_Account(int Account_no, const std::string &name, double balance, double overdraft_limit) : Account(Account_no, name, balance)
+Current_Account::Current_Account(int Account_no, const string &name, double balance, double overdraft_limit) : Account(Account_no, name, balance)
 {
     this->over_draft_limit = overdraft_limit;
 }
@@ -134,7 +135,7 @@ bool Current_Account::withdraw(double amount)
     }
 }
 
-void Account::exportHistory(const std::string &filename) const
+void Account::exportHistory(const string &filename) const
 {
     std::ofstream file(filename);
     if (!file.is_open())

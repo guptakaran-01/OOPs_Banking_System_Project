@@ -1,5 +1,6 @@
 #include "Bank.h"
-#include <bits/stdc++.h>
+#include "Account.h"
+#include <iostream>
 using namespace std;
 
 // Account Creation
@@ -27,7 +28,7 @@ IAccount *Bank::find_acc(int account_no)
         }
     }
 
-    return NULL; // If no account found
+    return nullptr; // If no account found
 }
 
 void Bank::deposit_to_account(int account_no, double amount)

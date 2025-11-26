@@ -12,8 +12,10 @@ public:
     virtual std::string get_account_holder_name()const=0;
     virtual double get_balance()const=0;
     
-    virtual bool deposit(double amount);
-    virtual bool withdraw(double amount);
+    virtual bool deposit(double amount)=0;
+    virtual bool withdraw(double amount)=0;
+
+    virtual void displayBalance() const=0;
     
     virtual void print_transaction_history()const=0;
     virtual void exportHistory(const std::string& filename) const=0;
