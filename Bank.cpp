@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-// Account Creation
 void Bank::create_saving_account(const string& name, double balance, double rate)
 {
     IAccount *acc = new Saving_Account(nextAccountnumber++, name, balance, rate);
